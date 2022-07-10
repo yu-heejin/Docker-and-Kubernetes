@@ -21,7 +21,8 @@ app.get('/', (req, res) => {
       </head>
       <body>
         <section>
-          <h2>My Course Goal</h2>
+          <h2>My Course Goal!</h2>
+          <!-- 느낌표를 추가했지만 도커에서는 실시간 수정이 안됨 -->
           <h3>${userGoal}</h3>
         </section>
         <form action="/store-goal" method="POST">

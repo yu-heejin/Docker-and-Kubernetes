@@ -13,7 +13,17 @@ WORKDIR /app
 # 도커 컨테이너의 작업 디렉토리를 설정하는 명령어
 # 모든 후속 명령이 그 폴더 내부에서 실행될 것임을 알림
 
+COPY package.json /app
+
+RUN npm install
+
 COPY . /app
+# 코드가 변경되었다고 해서 npm install을 매번 실행할 필요가 없음
+# 코드 변경이 감지되면 이후 모든 명령이 재실행됨 -> 불필요
+# npm install 이후 모든 소스코드를 복사하고, npm install 전에 package.json을 /app에 미리 복사
+# package.json 변경이 없으면 npm install을 하지 않음
+
+# COPY . /app
 # COPY (Host file System) (Image/ container file System)
 # 도커에게 로컬 머신에 있는 파일이 이미지에 들어가야 하는지 알려줌
 # COPY에 기본적으로 두개의 경로를 지정한다
@@ -29,7 +39,7 @@ COPY . /app
 # ./은 도커 컨테이너의 현재 작업 디렉토리를 의미함
 # 작업 디렉토리를 /app으로 변경했기 때문에 RUN, COPY 모두 작업 디렉토리를 기준으로 실행
 
-RUN npm install
+# RUN npm install
 # npm install 실행
 # 기본적으로 이러한 모든 명령은 도커 컨테이너 및 이미지의 작업 디렉토리에서 실행됨
 # 기본적으로 그 작업 디렉토리는 컨테이너 파일 시스템의 루트 폴더
