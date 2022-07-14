@@ -1,0 +1,34 @@
+1. docker ps : 모든 컨테이너를 리스트 할 수 있음
+ - 실행중인 모든 컨테이너를 디폴트로 보여줌
+ - -a 옵션 : 실행되지 않는 중지된 컨테이너를 포함하여 보여줌
+             과거에 있었던 모든 컨테이너가 표시됨
+ - docker ps --help : docker ps에 사용 가능한 모든 옵션 표시
+
+ ** 중지된 컨테이너를 다시 시작할 수 있음
+  - 새 컨테이너를 항상 docker run으로 실행할 필요 없음
+  - docker run을 사용하면 이미지 기반으로 새 컨테이너를 만들고, 그 이후에 새 컨테이너가 시작됨
+  - 소스 코드, 기타 환경설정 등이 변경되지 않고 이미지가 변경되지 않은 경우
+    새로운 컨테이너를 생성할 필요가 없음(기존 컨테이너 재실행)
+  - docker ps -a를 통해 중지된 컨테이너를 검색, 가장 최근 파일을 가져와 
+    docker start (컨테이너 이름 or ID) 으로 다시 시작할 수 있음!
+
+2. docker start (컨테이너 이름 or ID)
+ - 해당 명령어로 실행 시 컨테이너 백업되면서 실행됨(restart)
+ - docker run과 다르게 터미널 입력을 막지 않으면서 실행되는 것을 확인
+ - docker run과는 다르다
+ - -a 옵션을 사용하면 바로 attached 모드 시작
+
+3. docker run -p 접속포트:컨테이너포트 컨테이너 ID/Name
+ - 처음 시작 시 이렇게 포트를 지정해야만 docker start가능
+ - docker start는 -p 옵션이 불가능하다
+ - -d 옵션을 아이디 앞에 추가하면 detached 모드(background 동작)
+ - detached 모드를 사용하면 자동으로 생성된 새 컨테이너의 id를 얻게됨
+ - detached 컨테이너를 다시 attached 하려면 docker container attach container_name
+
+4. docker container attach / docker attach container_name
+ - background -> foreground
+
+5. docker logs container_name
+ - 백그라운드로 실행되는 컨테이너의 콘솔 출력 결과를 보여준다
+ - -f : follow 모드 -> 수신 대기 가능 (마치 foreground)
+ - 컨테이너 내부 정보가 필요할 때 사용함
